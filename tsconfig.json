@@ -1,0 +1,57 @@
+{
+  "compileOnSave": true,
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/define-options",
+      "@vue-macros/volar/define-models",
+      "@vue-macros/volar/define-props",
+      "@vue-macros/volar/define-props-refs",
+      "@vue-macros/volar/short-vmodel",
+      "@vue-macros/volar/define-slots",
+      "@vue-macros/volar/export-props"
+    ]
+  },
+  "compilerOptions": {
+    "types": [
+      "vite/client",
+      "unplugin-vue-macros/macros-global",
+      "unplugin-icons/types/vue"
+    ],
+    "declaration": false,
+    "declarationMap": true,
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "nodenext",
+    "allowJs": false,
+    "strict": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "types/**/*.d.ts",
+    "src/env.d.ts",
+    "vite.config.ts",
+    "vuepress.config.ts",
+    ".eslintrc.js",
+    "docs/**/*.md/*.ts"
+  ]
+}
