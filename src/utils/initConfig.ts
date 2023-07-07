@@ -1,14 +1,33 @@
-import ISysConfig from 'public/config/sysConfig.json'
-import ITheme from 'public/config/theme.json'
+import type { ReadonlyDeep } from 'type-fest'
+import defSysConfig from '@/asset/config/sysConfig.json'
+import defITheme from '@/asset/config/theme.json'
 
-type DeepPartial<T> = T extends object
-  ? T extends Array<unknown>
-    ? T
-    : { [P in keyof T]?: DeepPartial<T[P]> }
-  : T
+const defConfig = {
+  sysConfig: defSysConfig,
+  theme: defITheme,
+}
+
+function assignDeep<T extends object, U extends T>(target: T, source: U): T {
+  Object.entries(target).forEach(([key, value]) => {
+    if (typeof value === 'object' && value !== null) {
+      // @ts-ignore
+      assignDeep(value, source[key])
+    } else if (key in source) {
+      // @ts-ignore
+      target[key] = source[key]
+    }
+  })
+  return target
+}
 
 export const [sysConfig, theme] = (await Promise.all(
-  ['./config/sysConfig.json', './config/theme.json'].map(async (url) =>
-    (await fetch(url)).json()
+  ['sysConfig', 'theme'].map(async (url) =>
+    assignDeep(
+      await (await fetch(`./config/${url}.json`)).json(),
+      // @ts-ignore
+      defConfig[url]
+    )
   )
-)) as [typeof ISysConfig, DeepPartial<typeof ITheme>]
+)) as [ReadonlyDeep<typeof defSysConfig>, ReadonlyDeep<typeof defITheme>]
+
+export { defConfig }

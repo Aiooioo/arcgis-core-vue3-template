@@ -21,15 +21,6 @@ module.exports = defineConfig({
           jsx: true,
         },
       },
-      globals: {
-        // script setup
-        defineProps: 'readonly',
-        defineEmits: 'readonly',
-        defineExpose: 'readonly',
-        withDefaults: 'readonly',
-        // RFC: https://github.com/vuejs/rfcs/discussions/430
-        defineOptions: 'readonly',
-      },
       rules: {
         '@typescript-eslint/no-inferrable-types': 0,
         '@typescript-eslint/no-empty-interface': 0,
@@ -62,7 +53,7 @@ module.exports = defineConfig({
     'plugin:vue/vue3-recommended',
     'plugin:prettier/recommended',
     '@unocss',
-    './.eslintrc-auto-import.json',
+    '.eslintrc-auto-import.json',
   ],
 
   rules: {
@@ -100,6 +91,8 @@ module.exports = defineConfig({
     'import/extensions': 0,
     'import/prefer-default-export': 0,
 
+    // 使用未定义变量由ts报错
+    'no-undef': 'off',
     curly: ['error', 'all'],
     semi: ['error', 'never'],
     'linebreak-style': ['off'],

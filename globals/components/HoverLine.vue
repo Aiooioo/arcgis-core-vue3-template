@@ -14,8 +14,8 @@
 import { useCurrentElement } from '@vueuse/core'
 import { useThemeVars } from 'naive-ui'
 import { CSSProperties } from 'vue'
-import { useDragEvent } from '@/utils/hooks'
-import { useDragEventOptions } from '@/utils/hooks/useDragEvent'
+import { useDragEvent } from '../hooks'
+import { useDragEventOptions } from '../hooks/useDragEvent'
 
 const themeVars = useThemeVars()
 
@@ -24,17 +24,21 @@ const {
   hoverable = true,
   thickness = '5px',
   useDrag = true,
-  onDrag = () => () => undefined,
   style = {},
 } = $defineProps<{
   direction?: 'horizontal' | 'vertical' | 'none'
   hoverable?: boolean
   thickness?: string
   useDrag?: boolean | useDragEventOptions
-  onDrag?: Parameters<ReturnType<typeof useDragEvent>['onDrag']>[0]
   style?: CSSProperties
 }>()
 const el = useCurrentElement<HTMLElement>()
+
+const $emit = defineEmits<{
+  drag: [
+    val: Parameters<Parameters<ReturnType<typeof useDragEvent>['onDrag']>[0]>[0]
+  ]
+}>()
 
 if (useDrag) {
   const dragOptions = typeof useDrag === 'object' ? useDrag : {}
@@ -45,7 +49,7 @@ if (useDrag) {
       nextTick(() => {
         dragEvent?.cleanup()
         dragEvent = useDragEvent(el, dragOptions)
-        dragEvent.onDrag(onDrag)
+        dragEvent.onDrag((...r) => $emit('drag', ...r))
       })
     },
     {

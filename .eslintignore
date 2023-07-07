@@ -5,3 +5,5 @@ node_modules
 
 types/auto
 !docs/.vuepress/*.ts
+
+node

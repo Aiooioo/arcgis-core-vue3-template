@@ -1,4 +1,4 @@
-/** @ts-ignore */
+// @ts-ignore
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Components from 'unplugin-vue-components/vite'
@@ -8,16 +8,15 @@ import {
   VueUseDirectiveResolver,
 } from 'unplugin-vue-components/resolvers'
 import { resolve } from 'path'
-/** @ts-ignore */
+// @ts-ignore
 import AutoImport from 'unplugin-auto-import/vite'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-/** @ts-ignore */
+// @ts-ignore
 import { openCodeServer, addCodeLocation } from '@guijixing/vue-code-link'
 import VueMacros from 'unplugin-vue-macros/vite'
-/** @ts-ignore */
+// @ts-ignore
 import UnpluginSvgComponent from 'unplugin-svg-component/vite'
 import UnoCSS from 'unocss/vite'
-/** @ts-ignore https://github.com/sxzz/unplugin-glob */
 import UnpluginGlob from 'unplugin-glob/vite'
 import VueDevTools from 'vite-plugin-vue-devtools'
 import Icons from 'unplugin-icons/vite'
@@ -25,7 +24,6 @@ import IconsResolver from 'unplugin-icons/resolver'
 import { dynamicBase } from 'vite-plugin-dynamic-base'
 import { VueRouterAutoImports } from 'unplugin-vue-router'
 import VueRouter from 'unplugin-vue-router/vite'
-/** @ts-ignore */
 // import ConfigPlugin from 'unplugin-config/vite'
 // vite.config.js
 // https://vitejs.dev/config/
@@ -55,7 +53,7 @@ export default defineConfig({
       ],
       exclude: [/\.d\.ts$/],
 
-      root: process.cwd(),
+      root: '/',
 
       // Filepath to generate corresponding .d.ts files.
       // Defaults to both './glob.d.ts' and 'glob-global.d.ts' when provided `true`.
@@ -143,7 +141,7 @@ export default defineConfig({
       // extensions: ['vue', 'jsx', 'tsx', 'js', 'ts'],
       // Glob patterns to match file names to be detected as components.
       // When specified, the `dirs` and `extensions` options will be ignored.
-      globs: ['src/components/system/*.vue', 'src/utils/gComp/*.vue'],
+      // globs: ['src/components/system/*.vue', 'src/utils/components/*.vue'],
       allowOverrides: true,
       version: 3,
       resolvers: [
@@ -151,6 +149,18 @@ export default defineConfig({
         VueUseComponentsResolver(),
         VueUseDirectiveResolver(),
         IconsResolver({ prefix: 'i' }),
+        {
+          type: 'component',
+          resolve: (name) => {
+            if (name.startsWith('G')) {
+              return {
+                name: 'default',
+                from: `@g/components/${name.slice(1)}.vue`,
+              }
+            }
+            return null
+          },
+        },
       ],
       types: [
         {
@@ -171,8 +181,8 @@ export default defineConfig({
         VueRouterAutoImports,
         'pinia',
         // '@vueuse/core',
-        '@vueuse/math',
-        '@vueuse/head',
+        // '@vueuse/math',
+        // '@vueuse/head',
         {
           'naive-ui': [
             'useDialog',
@@ -189,10 +199,10 @@ export default defineConfig({
         },
       ],
       // 可以选择auto-import.d.ts生成的位置，使用ts建议设置为'src/auto-import.d.ts'
-      dts: 'types/auto/auto-import.d.ts',
+      dts: './types/auto/auto-import.d.ts',
       eslintrc: {
         enabled: true, // Default `false`
-        filepath: '.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
+        filepath: './.eslintrc-auto-import.json', // Default `./.eslintrc-auto-import.json`
         globalsPropValue: 'readonly', // Default `true`, (true | false | 'readonly' | 'readable' | 'writable' | 'writeable')
       },
     }),
@@ -203,6 +213,7 @@ export default defineConfig({
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json'],
     alias: {
       '@': resolve(__dirname, 'src'), // 路径别名
+      '@g': resolve(__dirname, 'globals'), // 路径别名
     },
   },
 })

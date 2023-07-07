@@ -1,9 +1,14 @@
 {
     "cSpell.words": [
+        "arcgis",
         "guijixing",
         "Tagify",
         "taiyang",
         "yueliang"
     ],
+    "path-intellisense.mappings": {
+        "@": "${workspaceFolder}/src",
+        "@g": "${workspaceFolder}/globals",
+    },
     "typescript.tsdk": "node_modules/typescript/lib"
 }

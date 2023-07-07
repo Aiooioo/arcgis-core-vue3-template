@@ -22,5 +22,3 @@ defineOptions({
   mixins: [CenterHeader],
 })
 </script>
-
-<style scoped></style>

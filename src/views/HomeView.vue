@@ -22,7 +22,7 @@
 
 <script setup lang="ts">
 import sysHeaderProps from '@/withData/sysHeaderProps'
-import sysMate from '@/components/systemWD/SysMate.vue'
+import sysMate from '@/components/systemEffect/SysMate.vue'
 
 definePage({
   name: 'home',

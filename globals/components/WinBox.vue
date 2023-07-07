@@ -12,7 +12,7 @@
       :use-drag="{
         container: containerRef,
       }"
-      :on-drag="
+      @drag="
         ({ moveX }) => {
           moveX.value = 0
         }
@@ -30,7 +30,7 @@
       :use-drag="{
         container: containerRef,
       }"
-      :on-drag="
+      @drag="
         ({ moveY }) => {
           moveY.value = 0
         }
@@ -48,7 +48,7 @@
       :use-drag="{
         container: containerRef,
       }"
-      :on-drag="
+      @drag="
         ({ moveX }) => {
           moveX.value = 0
         }
@@ -66,7 +66,7 @@
       :use-drag="{
         container: containerRef,
       }"
-      :on-drag="
+      @drag="
         ({ moveY }) => {
           moveY.value = 0
         }
@@ -363,8 +363,15 @@ function reset() {
 
 onMounted(() => {
   const { width, height } = useElementSize(containerRef)
-  watch([width, height], () => {
-    reset()
+  watch([direction, width], () => {
+    if (direction.value !== 'vertical') {
+      reset()
+    }
+  })
+  watch([direction, height], () => {
+    if (direction.value === 'vertical') {
+      reset()
+    }
   })
 })
 

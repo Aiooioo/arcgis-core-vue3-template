@@ -1,3 +1,4 @@
+import { ExtractPublicPropTypes } from 'vue'
 import SysHeader from '@/components/system/SysHeader.vue'
 
 export default {
@@ -6,4 +7,4 @@ export default {
     { label: '布局', key: '布局' },
     { label: '设置', key: '设置' },
   ],
-} as InstanceType<typeof SysHeader>['$props']
+} satisfies ExtractPublicPropTypes<InstanceType<typeof SysHeader>['$props']>

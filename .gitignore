@@ -23,10 +23,11 @@ dist-ssr
 
 public/iconfont
 
-types/auto
+types/auto/*
 .eslintrc-auto-import.json
 
 # vuepress
 .temp
 .cache
+node
 
