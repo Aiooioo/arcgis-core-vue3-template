@@ -52,9 +52,9 @@
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer'
 import SketchViewModel from '@arcgis/core/widgets/Sketch/SketchViewModel'
 import Polygon from '@arcgis/core/geometry/Polygon'
-import { useView } from '@/hooks'
+import { useView } from '@/components/arcgis/hooks'
 
-const view = useView()
+const view = $(useView())
 
 console.log(view)
 

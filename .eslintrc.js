@@ -26,6 +26,7 @@ module.exports = defineConfig({
         '@typescript-eslint/no-empty-interface': 0,
         '@typescript-eslint/no-non-null-assertion': 'off',
         '@typescript-eslint/ban-ts-comment': 0,
+        '@typescript-eslint/no-extra-semi': 0,
       },
     },
     {
