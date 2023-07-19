@@ -1,4 +1,5 @@
 <template>
+  <n-button @click="addView(testName)">新增</n-button>
   <g-win-box>
     <g-win-box direction="vertical">
       <arcgis-view
@@ -15,6 +16,7 @@
         :properties="properties1"
       />
     </g-win-box>
+
     <g-win-box direction="vertical">
       <!-- <arcgis-view
         :deps="deps"
@@ -22,10 +24,25 @@
         :properties="properties1"
       /> -->
       <arcgis-view
+        v-for="item in viewArr"
+        :key="item"
         :deps="deps"
-        :view-class="MapView"
+        :view-class="viewClass"
         :properties="properties1"
-      />
+      >
+        <n-button
+          style="margin-left: 60px; margin-top: 15px"
+          type="primary"
+          @click="changeView"
+          >切换</n-button
+        >
+        <n-button
+          style="margin-left: 10px; margin-top: 15px"
+          type="primary"
+          @click="deleteView(item)"
+          >删除</n-button
+        >
+      </arcgis-view>
     </g-win-box>
   </g-win-box>
 </template>
@@ -44,7 +61,29 @@ import ArcgisView from '@/components/arcgis/ArcgisView.vue'
 import { dep } from '@/components/arcgis'
 
 const viewClass = ref(SceneView)
+const viewArr = ref(['test', 'test'])
+const testName = ref(1)
 console.log(viewClass, MapView)
+
+const changeView = () => {
+  if (viewClass.value === MapView) {
+    viewClass.value = SceneView
+    console.log(1)
+  } else if (viewClass.value === SceneView) {
+    viewClass.value = MapView
+    console.log(2)
+  }
+  console.log(3)
+}
+
+const addView = (name) => {
+  testName.value += 1
+  viewArr.value.push(name)
+}
+
+const deleteView = (name) => {
+  viewArr.value.splice(viewArr.value.indexOf(name), 1)
+}
 
 const camera = reactive({
   position: {
