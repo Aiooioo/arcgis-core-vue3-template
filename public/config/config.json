@@ -2,7 +2,6 @@
   "apiUrl": "/",
   "basemaps": [
     {
-      "isDefault": true,
       "key": "satellite",
       "label": "卫星图",
       "layers": [
@@ -13,6 +12,7 @@
       "thumbnail": "./assets/esri/images/basemap/satellite.jpg"
     },
     {
+
       "id": "tdt-vec",
       "key": "vector",
       "label": "矢量图",
@@ -20,12 +20,12 @@
     },
     {
       "isDefault": true,
+
       "id": "group-group_china2mxin_4490",
       "key": "group-group_china2mxin_4490",
       "label": "group_china",
       "layers": [
-        {
-          "url": "https://whps.gis.test/arcgis/rest/services/Hosted/%E5%85%A8%E5%9B%BD%E9%81%A5%E6%84%9F%E5%BD%B1%E5%83%8F/MapServer"
+        {          "url": "https://whps.gis.test/arcgis/rest/services/Hosted/%E5%85%A8%E5%9B%BD%E9%81%A5%E6%84%9F%E5%BD%B1%E5%83%8F/MapServer"
         },
         {
           "spatialReference": {
@@ -188,7 +188,7 @@
       "viewingMode": "global",
       "map": {
         "basemap": {
-          "id": "satellite"
+          "id": "tdt-img"
         },
         "ground": {
           "surfaceColor": "#004C73"
@@ -196,8 +196,14 @@
       },
       "initialViewpoint": {
         "center": {
+          "spatialReference": {
+            "wkid": 4490
+          },
           "x": 114.5,
           "y": 30.5
+        },
+        "spatialReference": {
+          "wkid": 4490
         },
         "zoom": 1
       }

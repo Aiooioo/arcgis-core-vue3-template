@@ -99,7 +99,7 @@ module.exports = defineConfig({
     'linebreak-style': ['off'],
     'no-bitwise': 'off',
     'no-plusplus': 'off',
-    'no-console': ['error', { allow: ['warn', 'error', 'assert'] }],
+    'no-console': ['error', { allow: ['warn', 'error', 'assert', 'log'] }],
     'no-param-reassign': ['error', { props: false }],
   },
 })

@@ -29,6 +29,7 @@
         :deps="deps"
         :view-class="viewClass"
         :properties="properties1"
+        :base-maps="sysConfig.basemaps"
       >
         <n-button
           style="margin-left: 60px; margin-top: 15px"
@@ -80,8 +81,17 @@ import CreatePolygon from '@/components/arcgis/widgets/CreatePolygon.vue'
 import CreateLine from '@/components/arcgis/widgets/CreateLine.vue'
 import CreateRectangle from '@/components/arcgis/widgets/CreateRectangle.vue'
 import CreateCircle from '@/components/arcgis/widgets/CreateCircle.vue'
+import { sysConfig } from '@/utils/initConfig'
+import basemapCreator from '@/map/basemap-creator.js'
+
+const viewConfig = sysConfig.view.find((item) => item.default)
 
 const viewClass = ref(SceneView)
+if (viewConfig.type === '2d') {
+  viewClass.value = MapView
+} else {
+  viewClass.value = SceneView
+}
 const viewArr = ref(['test', 'test'])
 const testName = ref(1)
 console.log(viewClass, MapView)
@@ -116,16 +126,20 @@ const camera = reactive({
   heading: 0,
 })
 
-const properties1 = reactive({
+/* const properties1 = reactive({
   map: {
     basemap: 'satellite',
   },
   center: [-110.4443, 47.2529],
   zoom: 3,
   // camera,
+} satisfies ConstructorParameters<arcgis.View>[0]) */
+const _viewConfig = { ...viewConfig }
+delete _viewConfig.type
+delete _viewConfig.default
+const properties1 = reactive({
+  ..._viewConfig,
 } satisfies ConstructorParameters<arcgis.View>[0])
-
-console.log(properties1)
 
 const layers = reactive([
   {
@@ -151,7 +165,7 @@ const deps = reactive([
 ] as arcgis.Dep[])
 
 function when(view: Ref<InstanceType<arcgis.View>>) {
-  console.log(view)
+  console.log(view, '--view.when')
 }
 
 definePage({
