@@ -42,6 +42,21 @@
           @click="deleteView(item)"
           >删除</n-button
         >
+        <!-- <n-button style="margin-left: 10px; margin-top: 15px" type="primary"
+          >点</n-button
+        >
+        <n-button style="margin-left: 10px; margin-top: 15px" type="primary"
+          >线</n-button
+        >
+        <n-button style="margin-left: 10px; margin-top: 15px" type="primary"
+          >面</n-button
+        > -->
+        <!-- <sketch :view-class="viewClass" /> -->
+        <create-point :view-class="viewClass" />
+        <create-polygon :view-class="viewClass" />
+        <create-rectangle :view-class="viewClass" />
+        <create-circle :view-class="viewClass" />
+        <create-line :view-class="viewClass" />
       </arcgis-view>
     </g-win-box>
   </g-win-box>
@@ -59,6 +74,12 @@ import Layer from '@arcgis/core/layers/Layer.js'
 import WFlood from '@/components/arcgis/widgets/WFlood.vue'
 import ArcgisView from '@/components/arcgis/ArcgisView.vue'
 import { dep } from '@/components/arcgis'
+import Sketch from '@/components/arcgis/widgets/Sketch.vue'
+import CreatePoint from '@/components/arcgis/widgets/CreatePoint.vue'
+import CreatePolygon from '@/components/arcgis/widgets/CreatePolygon.vue'
+import CreateLine from '@/components/arcgis/widgets/CreateLine.vue'
+import CreateRectangle from '@/components/arcgis/widgets/CreateRectangle.vue'
+import CreateCircle from '@/components/arcgis/widgets/CreateCircle.vue'
 
 const viewClass = ref(SceneView)
 const viewArr = ref(['test', 'test'])
@@ -68,12 +89,12 @@ console.log(viewClass, MapView)
 const changeView = () => {
   if (viewClass.value === MapView) {
     viewClass.value = SceneView
-    console.log(1)
+    // console.log(1)
   } else if (viewClass.value === SceneView) {
     viewClass.value = MapView
-    console.log(2)
+    // console.log(2)
   }
-  console.log(3)
+  // console.log(3)
 }
 
 const addView = (name) => {
